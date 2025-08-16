@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -14,44 +13,44 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum EnumRole{
+enum enumRole{
   admin
   gerente
   comum
 }
 
-enum EnumStatus{
+enum enumStatus{
   ativo
   nao_ativo
 }
 
-enum ReservaStatus{
+enum reservaStatus{
   reservado
   nao_reservado
 }
 
-model Usuario{
+model usuario{
   id Int @id @default(autoincrement())
   nome String 
   username String @unique 
   cpf String @unique 
-  role EnumRole 
-  status EnumStatus 
+  role enumRole 
+  status enumStatus 
   dataCadastro DateTime @default(now())
   id_cadastrou Int?
-  localRelacionamento Local[] @relation(name:"LocalUsernameUsuario") 
+  localRelacionamento local[] @relation(name:"localUsernameUsuario") 
 }
 
-model Local{
+model local{
   id Int @id @default(autoincrement())
   capacidade Int 
-  statusReserva ReservaStatus
-  status EnumStatus
+  statusReserva reservaStatus
+  status enumStatus
   local String
   descricao String
   dataEventoInicio DateTime @default(now())
   dataEventoFinal DateTime @default(now())
   usernameReserva String
-  usuarioRelacionamento Usuario @relation(fields:[usernameReserva],references:[username],name:"LocalUsernameUsuario")
+  usuarioRelacionamento usuario @relation(fields:[usernameReserva],references:[username],name:"localUsernameUsuario")
 }
 

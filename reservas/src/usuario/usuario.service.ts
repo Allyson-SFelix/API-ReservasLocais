@@ -18,7 +18,7 @@ export class UsuarioService {
             return ErroPatterns.sucesso(dtoLogin);
         }else{
             try{
-                const resultadoBusca= await this.usuarioPrisma.Usuario.findUnique(
+                const resultadoBusca= await this.usuarioPrisma.usuario.findUnique(
                 {
                     where:{username:dtoLogin.username}
                 }

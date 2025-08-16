@@ -2,9 +2,9 @@ import { IsNotEmpty } from 'class-validator';
 
 export class UsuarioLoginDto    {
     @IsNotEmpty()
-    username:String;
+    username:string;
 
     @IsNotEmpty()
-    senha:String;
+    senha:string;
     
 }
