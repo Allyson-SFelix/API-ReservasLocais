@@ -1,0 +1,57 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum EnumRole{
+  admin
+  gerente
+  comum
+}
+
+enum EnumStatus{
+  ativo
+  nao_ativo
+}
+
+enum ReservaStatus{
+  reservado
+  nao_reservado
+}
+
+model Usuario{
+  id Int @id @default(autoincrement())
+  nome String 
+  username String @unique 
+  cpf String @unique 
+  role EnumRole 
+  status EnumStatus 
+  dataCadastro DateTime @default(now())
+  id_cadastrou Int?
+  localRelacionamento Local[] @relation(name:"LocalUsernameUsuario") 
+}
+
+model Local{
+  id Int @id @default(autoincrement())
+  capacidade Int 
+  statusReserva ReservaStatus
+  status EnumStatus
+  local String
+  descricao String
+  dataEventoInicio DateTime @default(now())
+  dataEventoFinal DateTime @default(now())
+  usernameReserva String
+  usuarioRelacionamento Usuario @relation(fields:[usernameReserva],references:[username],name:"LocalUsernameUsuario")
+}
+
