@@ -80,5 +80,25 @@ export class LocalService {
             return ErroPatterns.falha(erro.message);
         }
     }
-    
+
+    async AtualizarLocal(localDto:LocalDTO): Promise<ErroPatterns<LocalDTO>>{
+        try{
+            let resultado: number| null=await this.prismaService.reserva.count({
+                where:{id_local:localDto.id, status:true},
+            });
+
+            if(resultado==0){    
+                await this.prismaService.local.update({
+                    where:{id:localDto.id},
+                    data:{capacidade:localDto.capacidade,descricao:localDto.descricao,local:localDto.local},
+                });
+                return ErroPatterns.sucesso(localDto);
+            }else{
+                return ErroPatterns.falha("Local com reserva(s) pendente");
+            }
+        }catch(erro){
+            return ErroPatterns.falha(erro.message);
+        }
+    }
+
 }

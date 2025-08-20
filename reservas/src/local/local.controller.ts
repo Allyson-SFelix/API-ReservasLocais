@@ -1,4 +1,4 @@
-import { Body,Param, Controller, Get, HttpStatus, Post, UsePipes, ValidationPipe, ParseIntPipe, Delete } from '@nestjs/common';
+import { Body, Param, Controller, Get, HttpStatus, Post, UsePipes, ValidationPipe, ParseIntPipe, Delete, Put } from '@nestjs/common';
 import { LocalService } from './local.service';
 import { LocalDTO } from './dtos/local.dtos';
 import { ErroPatterns } from 'src/ErroPatterns/erroPatterns';
@@ -93,7 +93,25 @@ export class LocalController {
                 message:resultado.erro,
             };
         }
-    
+    }
+
+    @Put('atualizarLocal')
+    @UsePipes(new ValidationPipe({ whitelist: true })) //se esta de acordo com o dtos
+    async atualizarLocal(@Body() local:LocalDTO){
+        const resultado : ErroPatterns<LocalDTO>|null = await this.localService.AtualizarLocal(local);
+
+        if(resultado.status){
+            return {
+                statusCode:HttpStatus.OK,
+                message:'Local atualizado com sucesso',
+                data:local,
+            };
+        }else{
+            return {
+                statusCode:HttpStatus.BAD_REQUEST,
+                message:resultado.erro,
+            };
+        }
     }
 
 
