@@ -43,4 +43,20 @@ export class LocalService {
             return ErroPatterns.falha("erro:"+erro.message)
         }
     }
+
+
+    async BuscarLocal(idEntrada:number):Promise<ErroPatterns<LocalDTO>>{
+        try{
+            const resultado : LocalDTO|null = await this.prismaService.local.findFirst({
+                where:{
+                    id:idEntrada,
+                    status:true,
+                },
+                select: { id:true,capacidade: true, descricao: true,local:true }, 
+            });
+            return ErroPatterns.sucesso(resultado);
+        }catch(erro){
+            return ErroPatterns.falha("erro:"+erro.message);
+       }
+    }
 }

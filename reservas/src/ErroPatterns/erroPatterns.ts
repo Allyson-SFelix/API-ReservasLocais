@@ -9,7 +9,7 @@ export class ErroPatterns<T>{
         this.status=status;
     }
 
-    static sucesso<T>(dados:T):ErroPatterns<T>{
+    static sucesso<T>(dados:T|null):ErroPatterns<T>{
         const resposta=new ErroPatterns<T>(dados,"",true);
         return resposta;
     }

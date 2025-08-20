@@ -1,4 +1,4 @@
-import { Body,Param, Controller, Get, HttpStatus, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body,Param, Controller, Get, HttpStatus, Post, UsePipes, ValidationPipe, ParseIntPipe } from '@nestjs/common';
 import { LocalService } from './local.service';
 import { LocalDTO } from './dtos/local.dtos';
 import { ErroPatterns } from 'src/ErroPatterns/erroPatterns';
@@ -53,4 +53,29 @@ export class LocalController {
             };
         }
     }
+
+    @Get('listarLocal/:id')
+    async BuscarLocalAtivo(@Param('id',ParseIntPipe) id:number){
+        const resultado : ErroPatterns<LocalDTO> = await this.localService.BuscarLocal(id);
+        if(resultado.status){
+            if(resultado.dados===null){
+                return {
+                    statusCode:HttpStatus.OK,
+                    message: 'Local inexistente'
+                };
+            }else{
+                return{
+                    statusCode:HttpStatus.OK,
+                    message: 'Local:',
+                    data:resultado.dados
+                };
+            }
+        }else{
+            return{
+                statusCode:HttpStatus.BAD_REQUEST,
+                message:resultado.erro,
+            };
+        }
+    }
+
 }
