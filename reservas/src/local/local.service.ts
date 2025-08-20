@@ -31,7 +31,7 @@ export class LocalService {
     }
 
 
-    async listarLocais():Promise<ErroPatterns<LocalDTO[]>>{
+    async ListarLocais():Promise<ErroPatterns<LocalDTO[]>>{
         try{
 
             let resultado : LocalDTO[] = await this.prismaService.local.findMany({
@@ -59,4 +59,26 @@ export class LocalService {
             return ErroPatterns.falha("erro:"+erro.message);
        }
     }
+
+
+    async DesativarLocal(idRecebido:number): Promise<ErroPatterns<Boolean>>{
+        try{
+            let resultado: number| null=await this.prismaService.reserva.count({
+                where:{id_local:idRecebido, status:true},
+            });
+
+            if(resultado==0){    
+                await this.prismaService.local.update({
+                    where:{id:idRecebido},
+                    data:{status:false},
+                });
+                return ErroPatterns.sucesso(true);
+            }else{
+                return ErroPatterns.falha("Local com reserva(s) pendente");
+            }
+        }catch(erro){
+            return ErroPatterns.falha(erro.message);
+        }
+    }
+    
 }

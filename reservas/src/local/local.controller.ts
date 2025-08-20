@@ -1,4 +1,4 @@
-import { Body,Param, Controller, Get, HttpStatus, Post, UsePipes, ValidationPipe, ParseIntPipe } from '@nestjs/common';
+import { Body,Param, Controller, Get, HttpStatus, Post, UsePipes, ValidationPipe, ParseIntPipe, Delete } from '@nestjs/common';
 import { LocalService } from './local.service';
 import { LocalDTO } from './dtos/local.dtos';
 import { ErroPatterns } from 'src/ErroPatterns/erroPatterns';
@@ -32,7 +32,7 @@ export class LocalController {
     @Get('listarLocais')
     @UsePipes(new ValidationPipe({ whitelist: true })) //se esta de acordo com o dtos
     async listarTodos(){
-        const resultado:ErroPatterns<LocalDTO[]>= await this.localService.listarLocais();
+        const resultado:ErroPatterns<LocalDTO[]>= await this.localService.ListarLocais();
         if(resultado.status){
             if(resultado.dados?.length===0){
                 return {
@@ -77,5 +77,25 @@ export class LocalController {
             };
         }
     }
+
+    @Post('apagarLocal/:id')
+    async desativarLocal(@Param('id',ParseIntPipe) id:number){
+        const resultado : ErroPatterns<Boolean>= await this.localService.DesativarLocal(id);
+        if(resultado.status){
+            return {
+                statusCode:HttpStatus.OK,
+                message:'Local apagado com sucesso',
+            };
+
+        }else{
+            return {
+                statusCode:HttpStatus.BAD_REQUEST,
+                message:resultado.erro,
+            };
+        }
+    
+    }
+
+
 
 }
