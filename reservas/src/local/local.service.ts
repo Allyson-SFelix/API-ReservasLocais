@@ -1,4 +1,46 @@
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from 'prisma/prisma.service';
+import { ErroPatterns } from 'src/ErroPatterns/erroPatterns';
+import { LocalDTO } from './dtos/local.dtos';
+import { Local } from 'generated/prisma';
 
 @Injectable()
-export class LocalService {}
+export class LocalService {
+
+    private readonly prismaService:PrismaService;
+
+    constructor(prismaService:PrismaService){
+        this.prismaService=prismaService;
+    }
+
+    async cadastroLocal(localRecebido:LocalDTO):Promise<ErroPatterns<LocalDTO>>{
+        try{
+            await this.prismaService.local.create({
+                data: {
+                    capacidade: localRecebido.capacidade,
+                    descricao: localRecebido.descricao,
+                    status:true,
+                    local:localRecebido.local,
+                }
+            });
+
+            return ErroPatterns.sucesso(localRecebido);
+        }catch(erro){
+            return ErroPatterns.falha("nao cadastrado com sucesso\n"+erro.message);
+        }
+    }
+
+
+    async listarLocais():Promise<ErroPatterns<LocalDTO[]>>{
+        try{
+
+            let resultado : LocalDTO[] = await this.prismaService.local.findMany({
+                where:{ status:true},
+            });
+            return ErroPatterns.sucesso(resultado);
+            
+        }catch(erro){
+            return ErroPatterns.falha("erro:"+erro.message)
+        }
+    }
+}

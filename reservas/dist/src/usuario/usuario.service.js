@@ -14,9 +14,9 @@ const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../../prisma/prisma.service");
 const erroPatterns_1 = require("../ErroPatterns/erroPatterns");
 let UsuarioService = class UsuarioService {
-    usuarioPrisma;
-    constructor(usuarioPrisma) {
-        this.usuarioPrisma = usuarioPrisma;
+    prismaService;
+    constructor(prismaService) {
+        this.prismaService = prismaService;
     }
     ;
     async login(dtoLogin) {
@@ -25,7 +25,7 @@ let UsuarioService = class UsuarioService {
         }
         else {
             try {
-                const resultadoBusca = await this.usuarioPrisma.usuario.findUnique({
+                const resultadoBusca = await this.prismaService.usuario.findUnique({
                     where: { username: dtoLogin.username }
                 });
                 return erroPatterns_1.ErroPatterns.sucesso(dtoLogin);

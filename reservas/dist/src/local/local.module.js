@@ -10,13 +10,17 @@ exports.LocalModule = void 0;
 const common_1 = require("@nestjs/common");
 const local_controller_1 = require("./local.controller");
 const local_service_1 = require("./local.service");
+const prisma_module_1 = require("../../prisma/prisma.module");
+const erroPatterns_1 = require("../ErroPatterns/erroPatterns");
+const local_dtos_1 = require("./dtos/local.dtos");
 let LocalModule = class LocalModule {
 };
 exports.LocalModule = LocalModule;
 exports.LocalModule = LocalModule = __decorate([
     (0, common_1.Module)({
         controllers: [local_controller_1.LocalController],
-        providers: [local_service_1.LocalService]
+        providers: [local_service_1.LocalService],
+        imports: [local_dtos_1.LocalDTO, erroPatterns_1.ErroPatterns, prisma_module_1.PrismaModule]
     })
 ], LocalModule);
 //# sourceMappingURL=local.module.js.map

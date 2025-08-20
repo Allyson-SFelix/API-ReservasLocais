@@ -1,6 +1,6 @@
 export declare class ErroPatterns<T> {
     status: boolean;
-    dados?: T | null;
+    dados: T | null;
     erro?: string;
     constructor(dados: T | null, erro: string, status: boolean);
     static sucesso<T>(dados: T): ErroPatterns<T>;

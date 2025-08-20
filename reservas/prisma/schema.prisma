@@ -19,15 +19,6 @@ enum enumRole{
   comum
 }
 
-enum enumStatus{
-  ativo
-  nao_ativo
-}
-
-enum reservaStatus{
-  reservado
-  nao_reservado
-}
 
 model usuario{
   id Int @id @default(autoincrement())
@@ -35,22 +26,29 @@ model usuario{
   username String @unique 
   cpf String @unique 
   role enumRole 
-  status enumStatus 
+  status Boolean 
   dataCadastro DateTime @default(now())
   id_cadastrou Int?
-  localRelacionamento local[] @relation(name:"localUsernameUsuario") 
+  reservaRelacionamento reserva[] @relation(name:"usuarioReservaUsername") 
 }
 
 model local{
   id Int @id @default(autoincrement())
   capacidade Int 
-  statusReserva reservaStatus
-  status enumStatus
+  status Boolean
   local String
   descricao String
-  dataEventoInicio DateTime @default(now())
-  dataEventoFinal DateTime @default(now())
-  usernameReserva String
-  usuarioRelacionamento usuario @relation(fields:[usernameReserva],references:[username],name:"localUsernameUsuario")
+  reservaRelacionamento reserva[] @relation(name:"localReservaId") 
 }
 
+model reserva{
+    id Int @id @default(autoincrement())
+    dataInicio DateTime @default(now())
+    dataEventoFinal DateTime 
+    status Boolean
+    id_local Int
+    localRelacionamento local @relation(fields:[id_local],references:[id],name:"localReservaId") 
+    username_usuario String
+    usuarioRelacionamento usuario @relation(fields:[username_usuario],references:[username],name:"usuarioReservaUsername")
+
+}

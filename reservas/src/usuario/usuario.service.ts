@@ -6,10 +6,10 @@ import { ErroPatterns } from 'src/ErroPatterns/erroPatterns';
 @Injectable()
 export class UsuarioService {
 
-    private readonly usuarioPrisma:PrismaService; 
+    private readonly prismaService:PrismaService; 
 
-    constructor(usuarioPrisma:PrismaService){
-        this.usuarioPrisma=usuarioPrisma;
+    constructor(prismaService:PrismaService){
+        this.prismaService=prismaService;
     };
     
 
@@ -18,7 +18,7 @@ export class UsuarioService {
             return ErroPatterns.sucesso(dtoLogin);
         }else{
             try{
-                const resultadoBusca= await this.usuarioPrisma.usuario.findUnique(
+                const resultadoBusca= await this.prismaService.usuario.findUnique(
                 {
                     where:{username:dtoLogin.username}
                 }

@@ -1,6 +1,6 @@
 export class ErroPatterns<T>{
     status:boolean;
-    dados?: T | null;
+    dados: T | null;
     erro?:string;
 
     constructor(dados:T | null,erro:string,status:boolean){
@@ -10,7 +10,7 @@ export class ErroPatterns<T>{
     }
 
     static sucesso<T>(dados:T):ErroPatterns<T>{
-        const resposta=new ErroPatterns(dados,"",true);
+        const resposta=new ErroPatterns<T>(dados,"",true);
         return resposta;
     }
 
