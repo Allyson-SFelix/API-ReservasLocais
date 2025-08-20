@@ -1,58 +1,58 @@
 # compiled output
-/reserva/dist
-/reserva/node_modules
-/reserva/build
+/reservas/dist
+/reservas/node_modules
+/reservas/build
 
 # Logs
-/reserva/logs
-/reserva/*.log
-/reserva/npm-debug.log*
-/reserva/pnpm-debug.log*
-/reserva/yarn-debug.log*
-/reserva/yarn-error.log*
-/reserva/lerna-debug.log*
+/reservas/logs
+/reservas/*.log
+/reservas/npm-debug.log*
+/reservas/pnpm-debug.log*
+/reservas/yarn-debug.log*
+/reservas/yarn-error.log*
+/reservas/lerna-debug.log*
 
 # OS
-/reserva/.DS_Store
+/reservas/.DS_Store
 
 # Tests
-/reserva/coverage
-/reserva/.nyc_output
+/reservas/coverage
+/reservas/.nyc_output
 
 # IDEs and editors
-/reserva/.idea
-/reserva/.project
-/reserva/.classpath
-/reserva/.c9/
+/reservas/.idea
+/reservas/.project
+/reservas/.classpath
+/reservas/.c9/
 *.launch
-/reserva/.settings/
-/reserva/*.sublime-workspace
+/reservas/.settings/
+/reservas/*.sublime-workspace
 
 # IDE - VSCode
-/reserva/.vscode/*
-!/reserva/.vscode/settings.json
-!/reserva/.vscode/tasks.json
-!/reserva/.vscode/launch.json
-!/reserva/.vscode/extensions.json
+/reservas/.vscode/*
+!/reservas/.vscode/settings.json
+!/reservas/.vscode/tasks.json
+!/reservas/.vscode/launch.json
+!/reservas/.vscode/extensions.json
 
 # dotenv environment variable files
-/reserva/.env
-/reserva/.env.development.local
-/reserva/.env.test.local
-/reserva/.env.production.local
-/reserva/.env.local
+/reservas/.env
+/reservas/.env.development.local
+/reservas/.env.test.local
+/reservas/.env.production.local
+/reservas/.env.local
 
 # temp directory
-/reserva/.temp
-/reserva/.tmp
+/reservas/.temp
+/reservas/.tmp
 
 # Runtime data
-/reserva/pids
-/reserva/*.pid
-/reserva/*.seed
-/reserva/*.pid.lock
+/reservas/pids
+/reservas/*.pid
+/reservas/*.seed
+/reservas/*.pid.lock
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
-reserva/report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+reservas/report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
-/reserva/generated/prisma
+/reservas/generated/prisma
